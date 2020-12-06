@@ -141,3 +141,60 @@ List unionSet(List L1, List L2) {
     return pL;
 }
 
+void copyEvenNumbers(List L1, List *pL) {
+    makenullList(pL);
+    Position P = L1;
+    while(P->Next != NULL) {
+        if(P->Next->Element%2 == 0) {
+            append(P->Next->Element, pL);
+        }
+        P = P->Next;
+    }
+}
+
+void removeAll(ElementType x, List *pL) {
+    Position p = locate(x, *pL);
+    while(p->Next != NULL) {
+        p = locate(x, *pL);
+        deleteList(p, pL);
+    }
+}
+
+List difference(List L1, List L2) {
+    List pL;
+    makenullList(&pL);
+    Position p1 = L1;
+    while(p1->Next != NULL) {
+        if(!member(p1->Next->Element, L2)) 
+            append(p1->Next->Element, &pL);    
+        p1 = p1->Next;
+    }
+    return pL;
+}
+
+List intersection(List L1, List L2) {
+    List pL;
+    makenullList(&pL);
+    Position p = L1;
+    while(p->Next != NULL) {
+        if(member(p->Next->Element, L2)) 
+            append(p->Next->Element, &pL);
+        p = p->Next;
+    }
+    return pL;
+}
+
+float getAvg(List L) {
+    Position p = L;
+    if(p->Next == NULL) return -10000.0f;
+    else {
+        float sum = 0;
+        int k = 0;
+        while(p->Next != NULL) {
+            sum += p->Next->Element;
+            k++;
+            p = p->Next;
+        }
+        return sum/k;
+    }
+}
